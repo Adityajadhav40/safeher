@@ -1,0 +1,418 @@
+.contacts-page {
+    min-height: 100vh;
+    background: #f5f7fb;
+    color: #111827;
+}
+
+
+/* ============================================================
+   HEADER
+============================================================ */
+
+.contacts-header {
+    padding: 34px 40px 28px;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 22px;
+    color: #6b7280;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    color: #111827;
+}
+
+.contacts-eyebrow {
+    margin: 0 0 7px;
+    color: #ef4444;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.contacts-header h1 {
+    margin: 0;
+    font-size: 30px;
+    letter-spacing: -0.5px;
+}
+
+.contacts-description {
+    margin: 9px 0 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+/* ============================================================
+   CONTENT
+============================================================ */
+
+.contacts-content {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 28px 40px 50px;
+    box-sizing: border-box;
+}
+
+
+/* ============================================================
+   MESSAGES
+============================================================ */
+
+.contacts-message {
+    max-width: 1000px;
+    margin: 20px auto 0;
+    padding: 13px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+}
+
+.contacts-error {
+    border: 1px solid #fecaca;
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+.contacts-success {
+    border: 1px solid #bbf7d0;
+    background: #f0fdf4;
+    color: #15803d;
+}
+
+
+/* ============================================================
+   CARD
+============================================================ */
+
+.contacts-card {
+    margin-bottom: 20px;
+    padding: 26px;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    background: #ffffff;
+}
+
+.contacts-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.card-label {
+    margin: 0 0 5px;
+    color: #9ca3af;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+}
+
+.contacts-card-header h2 {
+    margin: 0;
+    font-size: 19px;
+}
+
+.contacts-card-icon,
+.contact-count {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: #f3f4f6;
+    color: #374151;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.contact-count {
+    min-width: 36px;
+    padding: 0 8px;
+    box-sizing: border-box;
+    font-size: 13px;
+}
+
+
+/* ============================================================
+   FORM
+============================================================ */
+
+.contact-form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.form-group {
+    min-width: 0;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #374151;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.form-group input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 13px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    outline: none;
+    background: #ffffff;
+    color: #111827;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.form-group input::placeholder {
+    color: #9ca3af;
+}
+
+.form-group input:focus {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.form-group input:disabled {
+    background: #f9fafb;
+}
+
+.add-contact-button {
+    margin-top: 18px;
+    padding: 11px 18px;
+    border: none;
+    border-radius: 9px;
+    background: #111827;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.add-contact-button:hover:not(:disabled) {
+    background: #1f2937;
+}
+
+.add-contact-button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+
+/* ============================================================
+   CONTACT LIST
+============================================================ */
+
+.contact-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 15px 0;
+    border-top: 1px solid #f0f1f3;
+}
+
+.contact-item:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+
+.contact-avatar {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: #fee2e2;
+    color: #dc2626;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.contact-info {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.contact-info strong {
+    font-size: 14px;
+}
+
+.contact-info span {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+.contact-info small {
+    color: #9ca3af;
+    font-size: 12px;
+}
+
+.delete-contact-button {
+    margin-left: auto;
+    padding: 8px 12px;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #dc2626;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.delete-contact-button:hover:not(:disabled) {
+    background: #fef2f2;
+}
+
+.delete-contact-button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+
+/* ============================================================
+   EMPTY / LOADING
+============================================================ */
+
+.contacts-loading {
+    padding: 35px 0;
+    color: #6b7280;
+    text-align: center;
+    font-size: 13px;
+}
+
+.contacts-empty {
+    padding: 35px 20px;
+    text-align: center;
+}
+
+.empty-contact-icon {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    background: #f3f4f6;
+    color: #6b7280;
+    font-size: 20px;
+}
+
+.contacts-empty h3 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.contacts-empty p {
+    max-width: 400px;
+    margin: 7px auto 0;
+    color: #6b7280;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   NOTE
+============================================================ */
+
+.contacts-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid #dbeafe;
+    border-radius: 13px;
+    background: #eff6ff;
+}
+
+.note-icon {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.contacts-note strong {
+    color: #1e3a8a;
+    font-size: 13px;
+}
+
+.contacts-note p {
+    margin: 4px 0 0;
+    color: #475569;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media (max-width: 800px) {
+    .contacts-header {
+        padding: 28px 24px;
+    }
+
+    .contacts-content {
+        padding: 24px;
+    }
+
+    .contact-form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 520px) {
+    .contacts-header {
+        padding: 24px 18px;
+    }
+
+    .contacts-content {
+        padding: 20px 18px 35px;
+    }
+
+    .contacts-card {
+        padding: 20px;
+    }
+
+    .contact-item {
+        align-items: flex-start;
+    }
+
+    .delete-contact-button {
+        flex-shrink: 0;
+    }
+}

@@ -1,0 +1,622 @@
+.sos-page {
+    min-height: 100vh;
+    background: #f5f7fb;
+    color: #111827;
+}
+
+.sos-header {
+    padding: 34px 40px 28px;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.sos-back-link {
+    display: inline-block;
+    margin-bottom: 22px;
+    color: #6b7280;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.sos-back-link:hover {
+    color: #111827;
+}
+
+.sos-eyebrow {
+    margin: 0 0 7px;
+    color: #ef4444;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.sos-header h1 {
+    margin: 0;
+    font-size: 30px;
+    letter-spacing: -0.5px;
+}
+
+.sos-description {
+    max-width: 650px;
+    margin: 9px 0 0;
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.sos-content {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 28px 40px 50px;
+    box-sizing: border-box;
+}
+
+
+/* ============================================================
+   ACTIVE SOS
+============================================================ */
+
+.active-sos-card {
+    margin-bottom: 20px;
+    padding: 28px;
+    border: 2px solid #fecaca;
+    border-radius: 18px;
+    background: #fff7f7;
+}
+
+.active-sos-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #b91c1c;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.active-sos-indicator span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ef4444;
+    animation: sos-pulse 1.2s infinite;
+}
+
+@keyframes sos-pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.35;
+    }
+}
+
+.active-sos-card h2 {
+    margin: 12px 0 5px;
+    font-size: 22px;
+}
+
+.active-sos-card > p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.active-sos-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 24px 0;
+    border-top: 1px solid #fecaca;
+    border-bottom: 1px solid #fecaca;
+}
+
+.active-sos-details div {
+    padding: 15px;
+    border-right: 1px solid #fecaca;
+}
+
+.active-sos-details div:first-child {
+    padding-left: 0;
+}
+
+.active-sos-details div:last-child {
+    border-right: none;
+}
+
+.active-sos-details span,
+.sos-location-grid span,
+.sos-safety-stats span {
+    display: block;
+    margin-bottom: 5px;
+    color: #9ca3af;
+    font-size: 11px;
+}
+
+.active-sos-details strong,
+.sos-location-grid strong,
+.sos-safety-stats strong {
+    font-size: 14px;
+}
+
+.cancel-sos-button {
+    padding: 11px 18px;
+    border: 1px solid #dc2626;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #dc2626;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.cancel-sos-button:hover:not(:disabled) {
+    background: #fef2f2;
+}
+
+.cancel-sos-button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+
+/* ============================================================
+   MESSAGES
+============================================================ */
+
+.sos-message {
+    margin-bottom: 20px;
+    padding: 13px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+}
+
+.sos-error {
+    border: 1px solid #fecaca;
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+.sos-success {
+    border: 1px solid #bbf7d0;
+    background: #f0fdf4;
+    color: #15803d;
+}
+
+
+/* ============================================================
+   SOS ACTION
+============================================================ */
+
+.sos-action-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 40px 30px;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    background: #ffffff;
+    text-align: center;
+}
+
+.sos-button-wrapper {
+    margin-bottom: 22px;
+}
+
+.sos-main-button {
+    width: 190px;
+    height: 190px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 12px solid #fee2e2;
+    border-radius: 50%;
+    background: #dc2626;
+    color: #ffffff;
+    font-family: inherit;
+    cursor: pointer;
+    box-shadow:
+        0 0 0 10px #fff7f7,
+        0 15px 35px rgba(220, 38, 38, 0.25);
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.sos-main-button:hover:not(:disabled) {
+    transform: scale(1.03);
+    background: #b91c1c;
+}
+
+.sos-main-button:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.sos-main-button:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+.sos-main-label {
+    font-size: 38px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.sos-main-subtitle {
+    margin-top: 4px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.sos-action-card h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.sos-action-card > p {
+    max-width: 500px;
+    margin: 8px 0 20px;
+    color: #6b7280;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.check-location-button {
+    padding: 10px 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #374151;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.check-location-button:hover:not(:disabled) {
+    background: #f9fafb;
+}
+
+.check-location-button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+
+/* ============================================================
+   CARD
+============================================================ */
+
+.sos-card {
+    margin-bottom: 20px;
+    padding: 26px;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    background: #ffffff;
+}
+
+.sos-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 22px;
+}
+
+.card-label {
+    margin: 0 0 5px;
+    color: #9ca3af;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+}
+
+.sos-card-header h2 {
+    margin: 0;
+    font-size: 19px;
+}
+
+.sos-card-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: #f3f4f6;
+    color: #374151;
+    font-weight: 800;
+}
+
+
+/* ============================================================
+   LOCATION
+============================================================ */
+
+.sos-location-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid #f0f1f3;
+    border-bottom: 1px solid #f0f1f3;
+}
+
+.sos-location-grid > div {
+    padding: 16px;
+    border-right: 1px solid #f0f1f3;
+}
+
+.sos-location-grid > div:first-child {
+    padding-left: 0;
+}
+
+.sos-location-grid > div:last-child {
+    border-right: none;
+}
+
+
+/* ============================================================
+   SAFETY
+============================================================ */
+
+.sos-safety-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 30px;
+}
+
+.sos-safety-main {
+    padding-right: 30px;
+    border-right: 1px solid #f0f1f3;
+}
+
+.sos-risk-badge {
+    display: inline-flex;
+    padding: 7px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.sos-risk-low {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.sos-risk-moderate {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.sos-risk-high {
+    background: #ffedd5;
+    color: #c2410c;
+}
+
+.sos-risk-critical {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.sos-risk-unknown {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+.sos-score {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-top: 15px;
+}
+
+.sos-score strong {
+    font-size: 40px;
+    letter-spacing: -1px;
+}
+
+.sos-score span {
+    color: #9ca3af;
+    font-size: 13px;
+}
+
+.sos-safety-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+
+/* ============================================================
+   HISTORY
+============================================================ */
+
+.sos-history {
+    display: flex;
+    flex-direction: column;
+}
+
+.sos-history-item {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    align-items: center;
+    gap: 16px;
+    padding: 15px 0;
+    border-top: 1px solid #f0f1f3;
+}
+
+.sos-history-item:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+
+.status-active,
+.status-cancelled {
+    display: inline-flex;
+    padding: 5px 8px;
+    border-radius: 6px;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.status-active {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.status-cancelled {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+.history-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.history-info strong {
+    font-size: 12px;
+}
+
+.history-info span {
+    color: #9ca3af;
+    font-size: 11px;
+}
+
+.history-risk {
+    text-align: right;
+}
+
+.sos-empty {
+    padding: 30px 0;
+    color: #6b7280;
+    font-size: 13px;
+    text-align: center;
+}
+
+
+/* ============================================================
+   NOTICE
+============================================================ */
+
+.sos-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid #fde68a;
+    border-radius: 13px;
+    background: #fffbeb;
+}
+
+.notice-icon {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #d97706;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.sos-notice strong {
+    color: #92400e;
+    font-size: 13px;
+}
+
+.sos-notice p {
+    margin: 4px 0 0;
+    color: #78350f;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media (max-width: 800px) {
+    .sos-header {
+        padding: 28px 24px;
+    }
+
+    .sos-content {
+        padding: 24px;
+    }
+
+    .active-sos-details,
+    .sos-location-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .active-sos-details div,
+    .sos-location-grid > div {
+        padding: 13px 0;
+        border-right: none;
+        border-bottom: 1px solid #f0f1f3;
+    }
+
+    .active-sos-details div:last-child,
+    .sos-location-grid > div:last-child {
+        border-bottom: none;
+    }
+
+    .sos-safety-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sos-safety-main {
+        padding-right: 0;
+        padding-bottom: 20px;
+        border-right: none;
+        border-bottom: 1px solid #f0f1f3;
+    }
+}
+
+@media (max-width: 520px) {
+    .sos-header {
+        padding: 24px 18px;
+    }
+
+    .sos-content {
+        padding: 20px 18px 35px;
+    }
+
+    .sos-card {
+        padding: 20px;
+    }
+
+    .sos-action-card {
+        padding: 30px 20px;
+    }
+
+    .sos-main-button {
+        width: 165px;
+        height: 165px;
+    }
+
+    .sos-main-label {
+        font-size: 32px;
+    }
+
+    .sos-history-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .history-risk {
+        text-align: left;
+    }
+}
