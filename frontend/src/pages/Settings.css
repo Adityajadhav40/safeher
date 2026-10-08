@@ -1,0 +1,1120 @@
+/* =========================================================
+   SAFEHER — SETTINGS PAGE
+========================================================= */
+
+.settings-page {
+    min-height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+
+    background: #f4f7fb;
+    color: #142942;
+
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    padding: 0 28px 40px;
+}
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.settings-topbar {
+    width: 100%;
+    max-width: 1270px;
+
+    margin: 0 auto;
+
+    padding: 20px 0 12px;
+}
+
+
+.settings-back-button {
+    appearance: none;
+
+    border: 1px solid #d8e1eb;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #18304d;
+
+    padding: 10px 16px;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 750;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.settings-back-button:hover {
+    background: #f8fafc;
+    border-color: #bdcbd9;
+
+    box-shadow:
+        0 5px 14px rgba(18, 38, 63, 0.08);
+
+    transform: translateX(-2px);
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.settings-header {
+    width: 100%;
+    max-width: 1270px;
+
+    margin: 0 auto 26px;
+
+    padding-top: 12px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+.settings-eyebrow {
+    margin-bottom: 7px;
+
+    color: #ef3f43;
+
+    font-size: 10px;
+    font-weight: 850;
+
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+
+
+.settings-header h1 {
+    margin: 0;
+
+    color: #142942;
+
+    font-size: clamp(34px, 4vw, 48px);
+    line-height: 1.05;
+
+    font-weight: 800;
+    letter-spacing: -0.04em;
+}
+
+
+.settings-header p {
+    margin: 10px 0 0;
+
+    max-width: 650px;
+
+    color: #687b91;
+
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   SAVED INDICATOR
+========================================================= */
+
+.settings-saved {
+    opacity: 0;
+
+    padding: 9px 12px;
+
+    border: 1px solid #c9edd8;
+    border-radius: 999px;
+
+    background: #f1fff6;
+    color: #18844c;
+
+    font-size: 10px;
+    font-weight: 750;
+
+    transform: translateY(4px);
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.settings-saved.visible {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.settings-content {
+    width: 100%;
+    max-width: 1270px;
+
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 16px;
+}
+
+
+/* =========================================================
+   GENERIC CARD
+========================================================= */
+
+.settings-card {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 25px 28px;
+
+    border: 1px solid #dce5ee;
+    border-radius: 17px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 8px 28px rgba(21, 42, 66, 0.055);
+}
+
+
+.settings-card-heading {
+    margin-bottom: 20px;
+}
+
+
+.settings-card-eyebrow {
+    margin-bottom: 6px;
+
+    color: #8497aa;
+
+    font-size: 9px;
+    font-weight: 850;
+
+    letter-spacing: 0.19em;
+    text-transform: uppercase;
+}
+
+
+.settings-card-heading h2 {
+    margin: 0;
+
+    color: #142942;
+
+    font-size: 20px;
+    line-height: 1.2;
+
+    font-weight: 800;
+}
+
+
+.settings-card-heading p {
+    margin: 7px 0 0;
+
+    color: #7b8da1;
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   SETTINGS LIST
+========================================================= */
+
+.settings-list {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.settings-row {
+    min-height: 88px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid #edf1f5;
+}
+
+
+.settings-row:first-child {
+    padding-top: 0;
+}
+
+
+.settings-row:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+
+.settings-row-icon {
+    width: 43px;
+    height: 43px;
+
+    flex: 0 0 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    font-size: 18px;
+    font-weight: 800;
+}
+
+
+.settings-row-icon.location {
+    background: #edf4ff;
+    color: #286bc0;
+}
+
+
+.settings-row-icon.safety {
+    background: #fff0f0;
+    color: #e33e43;
+}
+
+
+.settings-row-icon.email {
+    background: #edf8f2;
+    color: #16834a;
+}
+
+
+.settings-row-content {
+    min-width: 0;
+
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.settings-row-content strong {
+    color: #172c46;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+.settings-row-content span {
+    max-width: 720px;
+
+    color: #7a8da1;
+
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   TOGGLE
+========================================================= */
+
+.settings-toggle {
+    appearance: none;
+
+    width: 45px;
+    height: 25px;
+
+    flex: 0 0 45px;
+
+    padding: 0;
+
+    border: none;
+    border-radius: 999px;
+
+    background: #cbd5df;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.settings-toggle-track {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    position: relative;
+}
+
+
+.settings-toggle-thumb {
+    width: 19px;
+    height: 19px;
+
+    position: absolute;
+
+    top: 3px;
+    left: 3px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 2px 5px rgba(20, 40, 65, 0.2);
+
+    transition:
+        transform 0.2s ease;
+}
+
+
+.settings-toggle.active {
+    background: #ef4146;
+}
+
+
+.settings-toggle.active
+.settings-toggle-thumb {
+    transform: translateX(20px);
+}
+
+
+.settings-toggle:hover {
+    box-shadow:
+        0 0 0 4px rgba(239, 65, 70, 0.08);
+}
+
+
+/* =========================================================
+   ACCOUNT ACTIONS
+========================================================= */
+
+.settings-action-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+
+.settings-action {
+    appearance: none;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 14px;
+
+    border: 1px solid #e0e7ef;
+    border-radius: 13px;
+
+    background: #fbfcfe;
+    color: inherit;
+
+    font-family: inherit;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.settings-action:hover {
+    background: #ffffff;
+    border-color: #c8d5e3;
+
+    box-shadow:
+        0 6px 17px rgba(22, 43, 68, 0.07);
+
+    transform: translateY(-1px);
+}
+
+
+.settings-action-icon {
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    font-size: 16px;
+    font-weight: 850;
+}
+
+
+.settings-action-icon.profile {
+    background: #fff0f0;
+    color: #e33e43;
+}
+
+
+.settings-action-icon.contacts {
+    background: #edf4ff;
+    color: #286bc0;
+}
+
+
+.settings-action > div:nth-child(2) {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+
+.settings-action strong {
+    color: #172c46;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+.settings-action span {
+    color: #7a8da1;
+
+    font-size: 10px;
+    line-height: 1.45;
+}
+
+
+.settings-action b {
+    margin-left: auto;
+
+    color: #94a4b5;
+
+    font-size: 18px;
+
+    transition:
+        transform 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.settings-action:hover b {
+    color: #ef4146;
+
+    transform: translateX(3px);
+}
+
+
+/* =========================================================
+   CURRENT ACCOUNT
+========================================================= */
+
+.settings-account-card {
+    width: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 18px 20px;
+
+    border: 1px solid #dce5ee;
+    border-radius: 16px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 7px 22px rgba(22, 42, 67, 0.045);
+}
+
+
+.settings-account-icon {
+    width: 43px;
+    height: 43px;
+
+    flex: 0 0 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #e9f8ef;
+    color: #18844c;
+
+    font-size: 15px;
+    font-weight: 850;
+}
+
+
+.settings-account-info {
+    min-width: 0;
+
+    flex: 1;
+}
+
+
+.settings-account-info
+.settings-card-eyebrow {
+    margin-bottom: 4px;
+}
+
+
+.settings-account-info h3 {
+    margin: 0;
+
+    color: #172c46;
+
+    font-size: 14px;
+    font-weight: 800;
+}
+
+
+.settings-account-info p {
+    margin: 4px 0 0;
+
+    color: #8091a3;
+
+    font-size: 10px;
+
+    overflow-wrap: anywhere;
+}
+
+
+.settings-account-status {
+    padding: 7px 10px;
+
+    border: 1px solid #c9edd8;
+    border-radius: 999px;
+
+    background: #f1fff6;
+    color: #18844c;
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   APPLICATION INFORMATION
+========================================================= */
+
+.settings-info-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    border: 1px solid #e1e8ef;
+    border-radius: 13px;
+
+    overflow: hidden;
+}
+
+
+.settings-info-grid > div {
+    min-height: 78px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    gap: 6px;
+
+    padding: 14px 18px;
+
+    background: #fbfcfe;
+}
+
+
+.settings-info-grid > div:nth-child(odd) {
+    border-right: 1px solid #e1e8ef;
+}
+
+
+.settings-info-grid > div:nth-child(-n + 2) {
+    border-bottom: 1px solid #e1e8ef;
+}
+
+
+.settings-info-grid span {
+    color: #8a9caf;
+
+    font-size: 9px;
+    font-weight: 650;
+
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+
+.settings-info-grid strong {
+    color: #172c46;
+
+    font-size: 11px;
+    font-weight: 750;
+}
+
+
+/* =========================================================
+   INFORMATION CARD
+========================================================= */
+
+.settings-information-card {
+    width: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: flex-start;
+
+    gap: 13px;
+
+    padding: 17px 19px;
+
+    border: 1px solid #c8dcfa;
+    border-radius: 15px;
+
+    background: #f3f8ff;
+}
+
+
+.settings-information-icon {
+    width: 27px;
+    height: 27px;
+
+    flex: 0 0 27px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #dceaff;
+    color: #2468b9;
+
+    font-size: 12px;
+    font-weight: 850;
+}
+
+
+.settings-information-card h3 {
+    margin: 0 0 6px;
+
+    color: #1d4e87;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+.settings-information-card p {
+    margin: 0;
+
+    color: #647c97;
+
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+.settings-logout-card {
+    width: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 19px 20px;
+
+    border: 1px solid #f0d2d3;
+    border-radius: 16px;
+
+    background: #fffafa;
+}
+
+
+.settings-logout-card h3 {
+    margin: 0;
+
+    color: #7f292d;
+
+    font-size: 13px;
+    font-weight: 800;
+}
+
+
+.settings-logout-card p {
+    margin: 5px 0 0;
+
+    color: #9b7375;
+
+    font-size: 10px;
+}
+
+
+.settings-logout-button {
+    appearance: none;
+
+    flex-shrink: 0;
+
+    padding: 10px 17px;
+
+    border: 1px solid #edb8ba;
+    border-radius: 9px;
+
+    background: #ffffff;
+    color: #d3363c;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.settings-logout-button:hover {
+    background: #fff0f0;
+    border-color: #e48c90;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .settings-page {
+        padding: 0 18px 30px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .settings-page {
+        padding: 0 11px 24px;
+    }
+
+
+    .settings-topbar {
+        padding-top: 11px;
+        padding-bottom: 9px;
+    }
+
+
+    .settings-back-button {
+        padding: 9px 12px;
+
+        font-size: 11px;
+    }
+
+
+    .settings-header {
+        padding-top: 10px;
+
+        margin-bottom: 18px;
+
+        align-items: flex-start;
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+
+    .settings-eyebrow {
+        font-size: 8px;
+    }
+
+
+    .settings-header h1 {
+        font-size: 32px;
+    }
+
+
+    .settings-header p {
+        margin-top: 7px;
+
+        font-size: 12px;
+    }
+
+
+    .settings-content {
+        gap: 11px;
+    }
+
+
+    .settings-card {
+        padding: 17px;
+
+        border-radius: 14px;
+    }
+
+
+    .settings-card-heading {
+        margin-bottom: 14px;
+    }
+
+
+    .settings-card-eyebrow {
+        font-size: 8px;
+    }
+
+
+    .settings-card-heading h2 {
+        font-size: 17px;
+    }
+
+
+    .settings-card-heading p {
+        font-size: 9px;
+    }
+
+
+    .settings-row {
+        min-height: 82px;
+
+        gap: 10px;
+
+        padding: 13px 0;
+    }
+
+
+    .settings-row-icon {
+        width: 37px;
+        height: 37px;
+
+        flex-basis: 37px;
+
+        border-radius: 9px;
+
+        font-size: 15px;
+    }
+
+
+    .settings-row-content strong {
+        font-size: 11px;
+    }
+
+
+    .settings-row-content span {
+        font-size: 9px;
+    }
+
+
+    .settings-toggle {
+        width: 41px;
+        height: 23px;
+
+        flex-basis: 41px;
+    }
+
+
+    .settings-toggle-thumb {
+        width: 17px;
+        height: 17px;
+
+        top: 3px;
+        left: 3px;
+    }
+
+
+    .settings-toggle.active
+    .settings-toggle-thumb {
+        transform: translateX(18px);
+    }
+
+
+    .settings-action {
+        padding: 12px;
+    }
+
+
+    .settings-action-icon {
+        width: 37px;
+        height: 37px;
+
+        flex-basis: 37px;
+    }
+
+
+    .settings-action strong {
+        font-size: 11px;
+    }
+
+
+    .settings-action span {
+        font-size: 9px;
+    }
+
+
+    .settings-account-card {
+        padding: 15px;
+    }
+
+
+    .settings-account-icon {
+        width: 38px;
+        height: 38px;
+
+        flex-basis: 38px;
+    }
+
+
+    .settings-account-info h3 {
+        font-size: 12px;
+    }
+
+
+    .settings-account-info p {
+        font-size: 9px;
+    }
+
+
+    .settings-account-status {
+        padding: 6px 8px;
+
+        font-size: 8px;
+    }
+
+
+    .settings-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .settings-info-grid > div {
+        min-height: 67px;
+
+        padding: 12px 14px;
+    }
+
+
+    .settings-info-grid > div:nth-child(odd) {
+        border-right: none;
+    }
+
+
+    .settings-info-grid > div:nth-child(-n + 2) {
+        border-bottom: none;
+    }
+
+
+    .settings-info-grid > div:not(:last-child) {
+        border-bottom: 1px solid #e1e8ef;
+    }
+
+
+    .settings-information-card {
+        padding: 14px;
+    }
+
+
+    .settings-information-card p {
+        font-size: 9px;
+    }
+
+
+    .settings-logout-card {
+        align-items: flex-start;
+        flex-direction: column;
+
+        padding: 16px;
+    }
+
+
+    .settings-logout-button {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+.settings-page button:focus-visible {
+    outline: 3px solid rgba(47, 111, 191, 0.25);
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .settings-page *,
+    .settings-page *::before,
+    .settings-page *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}

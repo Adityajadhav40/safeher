@@ -2,16 +2,20 @@ import axios from "axios";
 
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ||
-  "http://127.0.0.1:8000/api/v1";
+    import.meta.env.VITE_API_BASE_URL ||
+    "http://127.0.0.1:8000/api/v1";
+
+
+const LOCATION_ENABLED_KEY =
+    "safeher_location_enabled";
 
 
 const api = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
-  timeout: 15000,
+    baseURL: API_BASE_URL,
+    headers: {
+        "Content-Type": "application/json",
+    },
+    timeout: 15000,
 });
 
 
@@ -20,57 +24,132 @@ const api = axios.create({
 ========================================================= */
 
 export const saveAuthToken = (token) => {
-  if (token) {
-    localStorage.setItem(
-      "safeher_access_token",
-      token
-    );
-  }
+    if (token) {
+        localStorage.setItem(
+            "safeher_access_token",
+            token
+        );
+    }
 };
 
 
 export const getAuthToken = () => {
-  return localStorage.getItem(
-    "safeher_access_token"
-  );
+    return localStorage.getItem(
+        "safeher_access_token"
+    );
 };
 
 
 export const saveUser = (user) => {
-  if (user) {
-    localStorage.setItem(
-      "safeher_user",
-      JSON.stringify(user)
-    );
-  }
+    if (user) {
+        localStorage.setItem(
+            "safeher_user",
+            JSON.stringify(user)
+        );
+    }
 };
 
 
 export const getSavedUser = () => {
-  const storedUser = localStorage.getItem(
-    "safeher_user"
-  );
+    const storedUser =
+        localStorage.getItem(
+            "safeher_user"
+        );
 
-  if (!storedUser) {
-    return null;
-  }
+    if (!storedUser) {
+        return null;
+    }
 
-  try {
-    return JSON.parse(storedUser);
-  } catch {
-    return null;
-  }
+    try {
+        return JSON.parse(storedUser);
+    } catch {
+        return null;
+    }
 };
 
 
 export const clearAuth = () => {
-  localStorage.removeItem(
-    "safeher_access_token"
-  );
+    localStorage.removeItem(
+        "safeher_access_token"
+    );
 
-  localStorage.removeItem(
-    "safeher_user"
-  );
+    localStorage.removeItem(
+        "safeher_user"
+    );
+};
+
+
+/* =========================================================
+   LOCATION PREFERENCE
+========================================================= */
+
+/*
+ * SafeHer uses this setting as the application's
+ * location-access preference.
+ *
+ * IMPORTANT:
+ *
+ * This does not override the browser's own GPS permission.
+ * If SafeHer is OFF, the application will not request
+ * navigator.geolocation.
+ *
+ * If the setting has never been configured, it defaults
+ * to ON so the existing application continues working.
+ */
+
+export const isLocationEnabled = () => {
+    const storedValue =
+        localStorage.getItem(
+            LOCATION_ENABLED_KEY
+        );
+
+    if (storedValue === null) {
+        return true;
+    }
+
+    return storedValue === "true";
+};
+
+
+export const setLocationEnabled = (
+    enabled
+) => {
+    const value =
+        Boolean(enabled);
+
+    localStorage.setItem(
+        LOCATION_ENABLED_KEY,
+        String(value)
+    );
+
+    return value;
+};
+
+
+export const enableLocation = () => {
+    return setLocationEnabled(true);
+};
+
+
+export const disableLocation = () => {
+    return setLocationEnabled(false);
+};
+
+
+export const requireLocationEnabled = () => {
+    if (!isLocationEnabled()) {
+        const error =
+            new Error(
+                "Location access is disabled in SafeHer Settings."
+            );
+
+        error.code =
+            "LOCATION_DISABLED";
+
+        throw error;
+    }
+
+    return true;
 };
 
 
@@ -79,19 +158,23 @@ export const clearAuth = () => {
 ========================================================= */
 
 api.interceptors.request.use(
-  (config) => {
-    const token = getAuthToken();
+    (config) => {
+        const token =
+            getAuthToken();
 
-    if (token) {
-      config.headers = config.headers || {};
+        if (token) {
+            config.headers =
+                config.headers || {};
 
-      config.headers.Authorization =
-        `Bearer ${token}`;
-    }
+            config.headers.Authorization =
+                `Bearer ${token}`;
+        }
 
-    return config;
-  },
-  (error) => Promise.reject(error)
+        return config;
+    },
+
+    (error) =>
+        Promise.reject(error)
 );
 
 
@@ -100,22 +183,28 @@ api.interceptors.request.use(
 ========================================================= */
 
 api.interceptors.response.use(
-  (response) => response,
+    (response) =>
+        response,
 
-  (error) => {
-    if (error?.response?.status === 401) {
-      clearAuth();
+    (error) => {
+        if (
+            error?.response?.status === 401
+        ) {
+            clearAuth();
 
-      if (
-        window.location.pathname !== "/login" &&
-        window.location.pathname !== "/register"
-      ) {
-        window.location.href = "/login";
-      }
+            if (
+                window.location.pathname !==
+                    "/login" &&
+                window.location.pathname !==
+                    "/register"
+            ) {
+                window.location.href =
+                    "/login";
+            }
+        }
+
+        return Promise.reject(error);
     }
-
-    return Promise.reject(error);
-  }
 );
 
 
@@ -123,372 +212,503 @@ api.interceptors.response.use(
    AUTH
 ========================================================= */
 
-export const registerUser = async (
-  userData
-) => {
-  const response = await api.post(
-    "/auth/register",
-    userData
-  );
+export const registerUser =
+    async (userData) => {
 
-  return response.data;
-};
+        const response =
+            await api.post(
+                "/auth/register",
+                userData
+            );
 
-
-export const loginUser = async (
-  credentials
-) => {
-  const response = await api.post(
-    "/auth/login",
-    credentials
-  );
-
-  const data = response.data;
-
-  if (data?.access_token) {
-    saveAuthToken(
-      data.access_token
-    );
-  }
-
-  if (data?.user) {
-    saveUser(data.user);
-  }
-
-  return data;
-};
+        return response.data;
+    };
 
 
-export const getCurrentUser = async () => {
-  const response = await api.get(
-    "/auth/me"
-  );
+export const loginUser =
+    async (credentials) => {
 
-  const user =
-    response.data?.data ??
-    response.data;
+        const response =
+            await api.post(
+                "/auth/login",
+                credentials
+            );
 
-  saveUser(user);
+        const data =
+            response.data;
 
-  return user;
-};
+        if (data?.access_token) {
+            saveAuthToken(
+                data.access_token
+            );
+        }
+
+        if (data?.user) {
+            saveUser(
+                data.user
+            );
+        }
+
+        return data;
+    };
+
+
+export const getCurrentUser =
+    async () => {
+
+        const response =
+            await api.get(
+                "/auth/me"
+            );
+
+        const user =
+            response.data?.data ??
+            response.data;
+
+        saveUser(user);
+
+        return user;
+    };
 
 
 export const register =
-  registerUser;
+    registerUser;
+
 
 export const login =
-  loginUser;
+    loginUser;
+
 
 export const logout =
-  clearAuth;
+    clearAuth;
 
 
 /* =========================================================
    LOCATION / SAFETY
 ========================================================= */
 
-export const getLocationSafety = async (
-  latitude,
-  longitude
-) => {
-  const response = await api.post(
-    "/location/safety",
-    {
-      latitude,
-      longitude,
-    }
-  );
+export const getLocationSafety =
+    async (
+        latitude,
+        longitude
+    ) => {
 
-  return response.data;
-};
+        /*
+         * Do NOT contact the backend when
+         * SafeHer location access is disabled.
+         */
+
+        requireLocationEnabled();
 
 
-export const getDistrictSafety = async (
-  district
-) => {
-  const response = await api.get(
-    `/safety/district/${encodeURIComponent(
-      district
-    )}`
-  );
+        const numericLatitude =
+            Number(latitude);
 
-  return response.data;
-};
+        const numericLongitude =
+            Number(longitude);
+
+
+        if (
+            !Number.isFinite(
+                numericLatitude
+            )
+        ) {
+            throw new Error(
+                "A valid latitude is required."
+            );
+        }
+
+
+        if (
+            !Number.isFinite(
+                numericLongitude
+            )
+        ) {
+            throw new Error(
+                "A valid longitude is required."
+            );
+        }
+
+
+        const response =
+            await api.post(
+                "/location/safety",
+                {
+                    latitude:
+                        numericLatitude,
+
+                    longitude:
+                        numericLongitude,
+                }
+            );
+
+
+        return response.data;
+    };
+
+
+export const getDistrictSafety =
+    async (district) => {
+
+        const response =
+            await api.get(
+                `/safety/district/${encodeURIComponent(
+                    district
+                )}`
+            );
+
+        return response.data;
+    };
 
 
 /* =========================================================
    SOS
 ========================================================= */
 
-export const createSOS = async (
-  latitude,
-  longitude,
-  riskLevel = null,
-  riskScore = null
-) => {
+export const createSOS =
+    async (
+        latitude,
+        longitude,
+        riskLevel = null,
+        riskScore = null
+    ) => {
 
-  /*
-   * Dashboard may pass the complete safety
-   * response as the first argument.
-   *
-   * Normalize it here.
-   */
+        /*
+         * SOS is also location-dependent.
+         *
+         * If the user explicitly disabled
+         * location in Settings, do not
+         * create an SOS with hidden GPS
+         * behavior.
+         */
 
-  if (
-    latitude &&
-    typeof latitude === "object"
-  ) {
-    const safetyData = latitude;
-
-    /*
-     * Support both:
-     *
-     * {
-     *   latitude,
-     *   longitude,
-     *   risk_level,
-     *   risk_score
-     * }
-     *
-     * and:
-     *
-     * {
-     *   data: {
-     *     location: {...},
-     *     safety: {...}
-     *   }
-     * }
-     */
-
-    if (
-      safetyData.data?.location
-    ) {
-      latitude =
-        safetyData.data.location.latitude;
-
-      longitude =
-        safetyData.data.location.longitude;
-
-      riskLevel =
-        safetyData.data.safety?.risk_level ??
-        safetyData.risk_level ??
-        null;
-
-      riskScore =
-        safetyData.data.safety?.risk_score ??
-        safetyData.risk_score ??
-        null;
-    } else {
-      latitude =
-        safetyData.latitude;
-
-      longitude =
-        safetyData.longitude;
-
-      riskLevel =
-        safetyData.risk_level ??
-        safetyData.riskLevel ??
-        null;
-
-      riskScore =
-        safetyData.risk_score ??
-        safetyData.riskScore ??
-        null;
-    }
-  }
+        requireLocationEnabled();
 
 
-  if (
-    latitude === undefined ||
-    latitude === null ||
-    longitude === undefined ||
-    longitude === null
-  ) {
-    throw new Error(
-      "Current location is unavailable."
-    );
-  }
+        /*
+         * Dashboard may pass the complete
+         * safety response as the first argument.
+         */
+
+        if (
+            latitude &&
+            typeof latitude ===
+                "object"
+        ) {
+
+            const safetyData =
+                latitude;
 
 
-  const response = await api.post(
-    "/sos",
-    {
-      latitude: Number(latitude),
-      longitude: Number(longitude),
-      risk_level:
-        riskLevel || null,
-      risk_score:
-        riskScore !== null &&
-        riskScore !== undefined
-          ? Number(riskScore)
-          : null,
-    }
-  );
+            /*
+             * Support:
+             *
+             * {
+             *   data: {
+             *     location: {...},
+             *     safety: {...}
+             *   }
+             * }
+             */
 
-  return response.data;
-};
+            if (
+                safetyData.data
+                    ?.location
+            ) {
+
+                latitude =
+                    safetyData
+                        .data
+                        .location
+                        .latitude;
+
+                longitude =
+                    safetyData
+                        .data
+                        .location
+                        .longitude;
+
+                riskLevel =
+                    safetyData
+                        .data
+                        .safety
+                        ?.risk_level ??
+                    safetyData
+                        .risk_level ??
+                    null;
+
+                riskScore =
+                    safetyData
+                        .data
+                        .safety
+                        ?.risk_score ??
+                    safetyData
+                        .risk_score ??
+                    null;
+
+            } else {
+
+                latitude =
+                    safetyData.latitude;
+
+                longitude =
+                    safetyData.longitude;
+
+                riskLevel =
+                    safetyData.risk_level ??
+                    safetyData.riskLevel ??
+                    null;
+
+                riskScore =
+                    safetyData.risk_score ??
+                    safetyData.riskScore ??
+                    null;
+            }
+        }
 
 
-export const getSOSHistory = async () => {
-  const response = await api.get(
-    "/sos"
-  );
-
-  return response.data;
-};
-
-
-export const getSOS = async (
-  sosId
-) => {
-  if (!sosId) {
-    throw new Error(
-      "SOS ID is required."
-    );
-  }
-
-  const response = await api.get(
-    `/sos/${sosId}`
-  );
-
-  return response.data;
-};
+        if (
+            latitude === undefined ||
+            latitude === null ||
+            longitude === undefined ||
+            longitude === null
+        ) {
+            throw new Error(
+                "Current location is unavailable."
+            );
+        }
 
 
-export const cancelSOS = async (
-  sosId
-) => {
-  if (!sosId) {
-    throw new Error(
-      "SOS ID is required."
-    );
-  }
+        const numericLatitude =
+            Number(latitude);
 
-  /*
-   * Backend accepts both POST and PATCH.
-   * Keep PATCH as the frontend contract.
-   */
+        const numericLongitude =
+            Number(longitude);
 
-  const response = await api.patch(
-    `/sos/${sosId}/cancel`
-  );
 
-  return response.data;
-};
+        if (
+            !Number.isFinite(
+                numericLatitude
+            )
+        ) {
+            throw new Error(
+                "Current latitude is invalid."
+            );
+        }
+
+
+        if (
+            !Number.isFinite(
+                numericLongitude
+            )
+        ) {
+            throw new Error(
+                "Current longitude is invalid."
+            );
+        }
+
+
+        const response =
+            await api.post(
+                "/sos",
+                {
+                    latitude:
+                        numericLatitude,
+
+                    longitude:
+                        numericLongitude,
+
+                    risk_level:
+                        riskLevel ||
+                        null,
+
+                    risk_score:
+                        riskScore !==
+                            null &&
+                        riskScore !==
+                            undefined
+                            ? Number(
+                                riskScore
+                            )
+                            : null,
+                }
+            );
+
+
+        return response.data;
+    };
+
+
+export const getSOSHistory =
+    async () => {
+
+        const response =
+            await api.get(
+                "/sos"
+            );
+
+        return response.data;
+    };
+
+
+export const getSOS =
+    async (sosId) => {
+
+        if (!sosId) {
+            throw new Error(
+                "SOS ID is required."
+            );
+        }
+
+
+        const response =
+            await api.get(
+                `/sos/${sosId}`
+            );
+
+
+        return response.data;
+    };
+
+
+export const cancelSOS =
+    async (sosId) => {
+
+        if (!sosId) {
+            throw new Error(
+                "SOS ID is required."
+            );
+        }
+
+
+        const response =
+            await api.patch(
+                `/sos/${sosId}/cancel`
+            );
+
+
+        return response.data;
+    };
 
 
 /* =========================================================
    EMERGENCY CONTACTS
 ========================================================= */
 
-export const getContacts = async () => {
-  const response = await api.get(
-    "/contacts"
-  );
+export const getContacts =
+    async () => {
 
-  return response.data;
-};
+        const response =
+            await api.get(
+                "/contacts"
+            );
 
-
-export const createContact = async (
-  contact
-) => {
-
-  if (!contact) {
-    throw new Error(
-      "Contact information is required."
-    );
-  }
+        return response.data;
+    };
 
 
-  const name =
-    String(contact.name || "").trim();
+export const createContact =
+    async (contact) => {
 
-  const phone =
-    String(contact.phone || "").trim();
-
-  const relationship =
-    String(
-      contact.relationship || ""
-    ).trim();
-
-  const email =
-    String(
-      contact.email || ""
-    ).trim();
+        if (!contact) {
+            throw new Error(
+                "Contact information is required."
+            );
+        }
 
 
-  if (!name) {
-    throw new Error(
-      "Contact name is required."
-    );
-  }
-
-  if (!phone) {
-    throw new Error(
-      "Contact phone number is required."
-    );
-  }
-
-  if (!relationship) {
-    throw new Error(
-      "Contact relationship is required."
-    );
-  }
+        const name =
+            String(
+                contact.name || ""
+            ).trim();
 
 
-  /*
-   * IMPORTANT:
-   *
-   * Email is optional.
-   *
-   * When empty, send null.
-   * When present, send the actual string.
-   */
-
-  const payload = {
-    name,
-    phone,
-    relationship,
-    email: email || null,
-  };
+        const phone =
+            String(
+                contact.phone || ""
+            ).trim();
 
 
-  const response = await api.post(
-    "/contacts",
-    payload
-  );
+        const relationship =
+            String(
+                contact.relationship ||
+                    ""
+            ).trim();
 
 
-  return response.data;
-};
+        const email =
+            String(
+                contact.email || ""
+            ).trim();
 
 
-export const deleteContact = async (
-  contactId
-) => {
-
-  const id =
-    contactId?.id ||
-    contactId?.contact_id ||
-    contactId;
+        if (!name) {
+            throw new Error(
+                "Contact name is required."
+            );
+        }
 
 
-  if (!id) {
-    throw new Error(
-      "Contact ID is required."
-    );
-  }
+        if (!phone) {
+            throw new Error(
+                "Contact phone number is required."
+            );
+        }
 
 
-  const response = await api.delete(
-    `/contacts/${encodeURIComponent(id)}`
-  );
+        if (!relationship) {
+            throw new Error(
+                "Contact relationship is required."
+            );
+        }
 
 
-  return response.data;
-};
+        const payload = {
+            name,
+            phone,
+            relationship,
+            email:
+                email || null,
+        };
+
+
+        const response =
+            await api.post(
+                "/contacts",
+                payload
+            );
+
+
+        return response.data;
+    };
+
+
+export const deleteContact =
+    async (contactId) => {
+
+        const id =
+            contactId?.id ||
+            contactId?.contact_id ||
+            contactId;
+
+
+        if (!id) {
+            throw new Error(
+                "Contact ID is required."
+            );
+        }
+
+
+        const response =
+            await api.delete(
+                `/contacts/${encodeURIComponent(
+                    id
+                )}`
+            );
+
+
+        return response.data;
+    };
 
 
 /* =========================================================
@@ -496,31 +716,35 @@ export const deleteContact = async (
 ========================================================= */
 
 export const getEmergencyContacts =
-  getContacts;
+    getContacts;
 
 
 export const addEmergencyContact =
-  createContact;
+    createContact;
 
 
 export const removeEmergencyContact =
-  deleteContact;
+    deleteContact;
 
 
 /* =========================================================
    AUTH STATE
 ========================================================= */
 
-export const isAuthenticated = () => {
-  return Boolean(
-    getAuthToken()
-  );
-};
+export const isAuthenticated =
+    () => {
+
+        return Boolean(
+            getAuthToken()
+        );
+    };
 
 
-export const getStoredUser = () => {
-  return getSavedUser();
-};
+export const getStoredUser =
+    () => {
+
+        return getSavedUser();
+    };
 
 
 /* =========================================================

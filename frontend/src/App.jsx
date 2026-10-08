@@ -1,93 +1,67 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import {
+    BrowserRouter,
+    Navigate,
+    Route,
+    Routes,
+} from "react-router-dom";
+
 import Login from "./pages/Login";
-import { isAuthenticated } from "./services/api";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import EmergencyContacts from "./pages/EmergencyContacts";
 import SOS from "./pages/SOS";
+import SafetyMap from "./pages/SafetyMap";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 
-// ============================================================
-// PLACEHOLDER PAGES
-// ============================================================
+import { isAuthenticated } from "./services/api";
 
-function LoginPlaceholder() {
-    return <div>Login Page</div>;
-}
-
-
-function RegisterPlaceholder() {
-    return <div>Register Page</div>;
-}
+import "./App.css";
 
 
-function DashboardPlaceholder() {
-    return <div>Dashboard</div>;
-}
-
-
-function SafetyMapPlaceholder() {
-    return <div>Safety Map</div>;
-}
-
-
-function EmergencyContactsPlaceholder() {
-    return <div>Emergency Contacts</div>;
-}
-
-
-function SOSPlaceholder() {
-    return <div>SOS</div>;
-}
-
-
-function ProfilePlaceholder() {
-    return <div>Profile</div>;
-}
-
-
-function SettingsPlaceholder() {
-    return <div>Settings</div>;
-}
-
-
-// ============================================================
-// PROTECTED ROUTE
-// ============================================================
-
-function ProtectedRoute({ children }) {
+function ProtectedRoute({
+    children,
+}) {
     if (!isAuthenticated()) {
-        return <Navigate to="/login" replace />;
+        return (
+            <Navigate
+                to="/login"
+                replace
+            />
+        );
     }
 
     return children;
 }
 
 
-// ============================================================
-// PUBLIC ROUTE
-// ============================================================
-
-function PublicRoute({ children }) {
+function PublicRoute({
+    children,
+}) {
     if (isAuthenticated()) {
-        return <Navigate to="/dashboard" replace />;
+        return (
+            <Navigate
+                to="/dashboard"
+                replace
+            />
+        );
     }
 
     return children;
 }
 
-
-// ============================================================
-// APPLICATION
-// ============================================================
 
 function App() {
+    const authenticated =
+        isAuthenticated();
+
+
     return (
         <BrowserRouter>
+
             <Routes>
 
-                {/* ------------------------------------------------
-                    PUBLIC ROUTES
-                ------------------------------------------------ */}
+                {/* PUBLIC */}
 
                 <Route
                     path="/login"
@@ -108,9 +82,7 @@ function App() {
                 />
 
 
-                {/* ------------------------------------------------
-                    PROTECTED ROUTES
-                ------------------------------------------------ */}
+                {/* PROTECTED */}
 
                 <Route
                     path="/dashboard"
@@ -125,7 +97,7 @@ function App() {
                     path="/safety-map"
                     element={
                         <ProtectedRoute>
-                            <SafetyMapPlaceholder />
+                            <SafetyMap />
                         </ProtectedRoute>
                     }
                 />
@@ -152,7 +124,7 @@ function App() {
                     path="/profile"
                     element={
                         <ProtectedRoute>
-                            <ProfilePlaceholder />
+                            <Profile />
                         </ProtectedRoute>
                     }
                 />
@@ -161,22 +133,20 @@ function App() {
                     path="/settings"
                     element={
                         <ProtectedRoute>
-                            <SettingsPlaceholder />
+                            <Settings />
                         </ProtectedRoute>
                     }
                 />
 
 
-                {/* ------------------------------------------------
-                    DEFAULT ROUTE
-                ------------------------------------------------ */}
+                {/* DEFAULT */}
 
                 <Route
                     path="/"
                     element={
                         <Navigate
                             to={
-                                isAuthenticated()
+                                authenticated
                                     ? "/dashboard"
                                     : "/login"
                             }
@@ -185,17 +155,12 @@ function App() {
                     }
                 />
 
-
-                {/* ------------------------------------------------
-                    UNKNOWN ROUTES
-                ------------------------------------------------ */}
-
                 <Route
                     path="*"
                     element={
                         <Navigate
                             to={
-                                isAuthenticated()
+                                authenticated
                                     ? "/dashboard"
                                     : "/login"
                             }
@@ -205,6 +170,7 @@ function App() {
                 />
 
             </Routes>
+
         </BrowserRouter>
     );
 }
