@@ -9,7 +9,7 @@ from backend.app.config import (
     APP_NAME,
     FRONTEND_URL,
 )
-from backend.app.database import engine, get_db
+from backend.app.database import engine, get_db, init_db
 from backend.app.dependencies import get_current_user
 from backend.app.models import User
 from backend.app.routers.auth import router as auth_router
@@ -64,7 +64,9 @@ app = FastAPI(
     redoc_url=None if IS_PRODUCTION else "/redoc",
 )
 
-
+@app.on_event("startup")
+def initialize_database() -> None:
+    init_db()
 app.include_router(auth_router)
 
 
